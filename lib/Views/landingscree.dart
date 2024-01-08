@@ -4,7 +4,8 @@ import 'package:tripvisor/Components/customtext.dart';
 import 'package:tripvisor/Components/navcomponent.dart';
 import 'package:tripvisor/Widgets/customdrawer.dart';
 import 'package:tripvisor/Widgets/footer.dart';
-import 'package:tripvisor/Widgets/offersection.dart';
+import 'package:tripvisor/Widgets/offersection1.dart';
+import 'package:tripvisor/Widgets/offersectionrepeated.dart';
 import 'package:tripvisor/Widgets/tagsandads.dart';
 import 'package:tripvisor/Widgets/searchbar.dart';
 
@@ -35,11 +36,27 @@ class _LandingScreenState extends State<LandingScreen> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               collapseMode: CollapseMode.parallax,
-              title: customText(
-                'Tripvisor',
-                20,
-                color: Colors.white,
-                weight: FontWeight.bold,
+              title: Container(
+                //fancy plan your trip interactive button here
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    customText(
+                      'Plan your trip',
+                       20,
+                      weight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+
               ),
               background: HomeFullScreenShow(),
             ),
@@ -60,8 +77,10 @@ class _LandingScreenState extends State<LandingScreen> {
               height: 20,
             ),
             TagDisplay(),
-            OfferSection(1),
-            customfooter(),
+            OfferSection1(),
+            offersectionrepeated(2),
+            offersectionrepeated(3),
+            CustomFooter(),
           ])),
         ],
       ),

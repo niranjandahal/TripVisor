@@ -81,11 +81,10 @@ class _TagDisplayState extends State<TagDisplay> {
                 //show all images from adsimglist in carousel slider
                 return CarouselSlider(
                   options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height * 0.8,
                     aspectRatio: 16 / 9,
                     viewportFraction: 0.80,
                     initialPage: 0,
-                    enableInfiniteScroll: true,
+                    enableInfiniteScroll: false,
                     reverse: false,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 3),
@@ -103,7 +102,6 @@ class _TagDisplayState extends State<TagDisplay> {
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
                           decoration: BoxDecoration(
-                              // color: Colors.amber,
                               ),
                           child: Image.network(
                             i,
@@ -122,7 +120,7 @@ class _TagDisplayState extends State<TagDisplay> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Container(
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: MediaQuery.of(context).size.height * 0.85,
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -132,14 +130,14 @@ class _TagDisplayState extends State<TagDisplay> {
                             itemBuilder: (context, index) {
                               return Container(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.7,
+                                    MediaQuery.of(context).size.height * 0.85,
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 margin: EdgeInsets.all(15),
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: NetworkImage(
                                         tagProvider.selectedtagimg[index]),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                   borderRadius: BorderRadius.circular(10),
                                 ),
@@ -147,45 +145,6 @@ class _TagDisplayState extends State<TagDisplay> {
                             },
                           ),
                         );
-                        //show all images from selectedtagimg in carousel slider
-                        // return CarouselSlider(
-                        //   options: CarouselOptions(
-                        //     height:
-                        //         MediaQuery.of(context).size.height * 0.85,
-                        //     aspectRatio: 16 / 9,
-                        //     viewportFraction: 0.95,
-                        //     initialPage: 0,
-                        //     enableInfiniteScroll: true,
-                        //     reverse: false,
-                        //     autoPlay: true,
-                        //     autoPlayInterval: const Duration(seconds: 3),
-                        //     autoPlayAnimationDuration:
-                        //         const Duration(milliseconds: 1500),
-                        //     autoPlayCurve: Curves.fastOutSlowIn,
-                        //     enlargeCenterPage: true,
-                        //     // onPageChanged: callbackFunction,
-                        //     scrollDirection: Axis.horizontal,
-                        //   ),
-                        //   items: tagProvider.selectedtagimg.map((i) {
-                        //     return Builder(
-                        //       builder: (BuildContext context) {
-                        //         return Container(
-                        //           width:
-                        //               MediaQuery.of(context).size.width,
-                        //           margin: const EdgeInsets.symmetric(
-                        //               horizontal: 5.0),
-                        //           decoration: BoxDecoration(
-                        //               // color: Colors.amber,
-                        //               ),
-                        //           child: Image.network(
-                        //             i,
-                        //             fit: BoxFit.fill,
-                        //           ),
-                        //         );
-                        //       },
-                        //     );
-                        //   }).toList(),
-                        // );
                       } else {
                         return tagsloadshimmereffect();
                       }
