@@ -4,11 +4,13 @@ import 'package:tripvisor/Views/landingscree.dart';
 import 'package:tripvisor/Widgets/searchbar.dart';
 import 'package:provider/provider.dart';
 import 'package:tripvisor/provider/tagprovider.dart';
+import 'package:tripvisor/provider/offersectionprovider.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => tagprovider()),
+      ChangeNotifierProvider(create: (context) => offersectionprovider()),
     ],
     child: MyApp(),
   ));

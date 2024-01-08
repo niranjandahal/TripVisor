@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class tagprovider extends ChangeNotifier {
+  
   List<String> tags = [
     'Beach',
     'Hill Station',
