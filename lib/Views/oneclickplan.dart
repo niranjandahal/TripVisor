@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps/google_maps.dart' as maps;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class OneClickPlan extends StatefulWidget {
   const OneClickPlan({Key? key}) : super(key: key);
@@ -10,9 +10,6 @@ class OneClickPlan extends StatefulWidget {
 }
 
 class _OneClickPlanState extends State<OneClickPlan> {
-//google maps all setup
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,32 +19,40 @@ class _OneClickPlanState extends State<OneClickPlan> {
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width,
             color: Colors.red,
-            //ask all info from user like destination from and to, budget, no of people,etc
+            // Ask all info from the user like destination, from and to, budget, no of people, etc
           ),
           Container(
             height: MediaQuery.of(context).size.height / 2,
             width: MediaQuery.of(context).size.width,
             child: FutureBuilder(
-              future: Geolocator.getCurrentPosition(
-                  desiredAccuracy: LocationAccuracy.high),
-              builder: (context, AsyncSnapshot<Position> snapshot) {
-                if (snapshot.hasData) {
-                  return maps.GoogleMap(
-                    initialCameraPosition: maps.CameraPosition(
-                      target: maps.LatLng(
-                          snapshot.data!.latitude, snapshot.data!.longitude),
-                      zoom: 15,
-                    ),
-                    mapType: maps.MapType.normal,
-                    onMapCreated: (maps.GoogleMapController controller) {},
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
+                future: Geolocator.getCurrentPosition(
+                  desiredAccuracy: LocationAccuracy.high,
+                ),
+                builder: (BuildContext context,
+                        AsyncSnapshot<Position> snapshot) =>
+                    GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                            snapshot.data!.latitude, snapshot.data!.longitude),
+                        zoom: 14,
+                      ),
+                      myLocationEnabled: true,
+                      myLocationButtonEnabled: true,
+                      mapType: MapType.normal,
+                      zoomControlsEnabled: true,
+                      zoomGesturesEnabled: true,
+                      scrollGesturesEnabled: true,
+                      tiltGesturesEnabled: true,
+                      rotateGesturesEnabled: true,
+                      compassEnabled: true,
+                      mapToolbarEnabled: true,
+                      trafficEnabled: true,
+                      indoorViewEnabled: true,
+                      buildingsEnabled: true,
+                      onTap: (LatLng latLng) {
+                        print(latLng);
+                      },
+                    )),
           ),
         ],
       ),
