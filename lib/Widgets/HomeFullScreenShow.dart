@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeFullScreenShow extends StatefulWidget {
   const HomeFullScreenShow({super.key});
@@ -28,47 +29,54 @@ class _HomeFullScreenShowState extends State<HomeFullScreenShow> {
           return Builder(
             builder: (BuildContext context) {
               return Stack(
-  children: [
-    Container(
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-      ),
-      child: Image.network(
-        i,
-        fit: BoxFit.cover,
-        color: Colors.black.withOpacity(0.3),
-        colorBlendMode: BlendMode.darken,
-      ),
-    ),
-    Positioned(
-      top: MediaQuery.of(context).size.height / 2 - 30.0, // Adjust as needed
-      left: 16.0,
-      right: 16.0,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Your Text Here',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 8.0),
-          ElevatedButton(
-            onPressed: () {
-              // Handle button click
-            },
-            child: Text('View Details'),
-          ),
-        ],
-      ),
-    ),
-  ],
-);
-
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                    ),
+                    child: Image.network(
+                      i,
+                      fit: BoxFit.cover,
+                      color: Colors.black.withOpacity(0.4),
+                      colorBlendMode: BlendMode.darken,
+                    ),
+                  ),
+                  Positioned(
+                    top: MediaQuery.of(context).size.height / 2 -
+                        30.0, // Adjust as needed
+                    left: 16.0,
+                    right: 16.0,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Text(
+                        //   'Your Text Here',
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 20.0,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                        SizedBox(height: 8.0),
+                        //elevated button with text view details and on hover it the button should change style
+                        InkWell(
+                          onTap: () {
+                            GoRouter.of(context).go('/packagedetails');
+                          },
+                          child: Text(
+                            'View Details',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              );
             },
           );
         }).toList(),
@@ -83,7 +91,7 @@ class _HomeFullScreenShowState extends State<HomeFullScreenShow> {
           autoPlayInterval: Duration(seconds: 4),
           autoPlayAnimationDuration: Duration(milliseconds: 2000),
           autoPlayCurve: Curves.fastOutSlowIn,
-          enlargeCenterPage: true,
+          // enlargeCenterPage: true,
           scrollDirection: Axis.horizontal,
         ),
       ),

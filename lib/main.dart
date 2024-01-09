@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tripvisor/Views/landingscree.dart';
+import 'package:tripvisor/Views/oneclickplan.dart';
+import 'package:tripvisor/Views/packagedetails.dart';
 import 'package:tripvisor/Widgets/searchbar.dart';
 import 'package:provider/provider.dart';
 import 'package:tripvisor/provider/tagprovider.dart';
@@ -24,8 +26,12 @@ class MyApp extends StatelessWidget {
         builder: (context, state) => LandingScreen(),
       ),
       GoRoute(
-        path: '/search',
-        builder: (context, state) => customsearchbar(),
+        path: '/packagedetails',
+        builder: (context, state) => PackageDetails(),
+      ),
+      GoRoute(
+        path: '/oneclickplan',
+        builder: (context, state) => OneClickPlan(),
       ),
     ],
   );

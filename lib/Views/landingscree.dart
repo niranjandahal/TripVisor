@@ -8,6 +8,7 @@ import 'package:tripvisor/Widgets/offersection1.dart';
 import 'package:tripvisor/Widgets/offersectionrepeated.dart';
 import 'package:tripvisor/Widgets/tagsandads.dart';
 import 'package:tripvisor/Widgets/searchbar.dart';
+import 'package:go_router/go_router.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -36,10 +37,21 @@ class _LandingScreenState extends State<LandingScreen> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               collapseMode: CollapseMode.parallax,
-              title: customText(
-                'some text',
-                20,
-                color: Colors.white,
+              title: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () {
+                  GoRouter.of(context).go('/oneclickplan');
+                },
+                child: customText(
+                  'one click plan',
+                  18,
+                  color: Color.fromARGB(255, 7, 58, 146),
+                ),
               ),
               background: HomeFullScreenShow(),
             ),
