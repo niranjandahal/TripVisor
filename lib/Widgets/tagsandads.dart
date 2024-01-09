@@ -74,6 +74,8 @@ class _TagDisplayState extends State<TagDisplay> {
         ),
         ////////////////////////////////
         Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.7,
           margin: EdgeInsets.all(10),
           child: Consumer<tagprovider>(
             builder: (context, tagProvider, child) {
@@ -101,8 +103,7 @@ class _TagDisplayState extends State<TagDisplay> {
                         return Container(
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(
-                              ),
+                          decoration: BoxDecoration(),
                           child: Image.network(
                             i,
                             fit: BoxFit.fill,

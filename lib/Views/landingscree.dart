@@ -36,27 +36,10 @@ class _LandingScreenState extends State<LandingScreen> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               collapseMode: CollapseMode.parallax,
-              title: Container(
-                //fancy plan your trip interactive button here
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    customText(
-                      'Plan your trip',
-                       20,
-                      weight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_drop_down,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-
+              title: customText(
+                'some text',
+                20,
+                color: Colors.white,
               ),
               background: HomeFullScreenShow(),
             ),

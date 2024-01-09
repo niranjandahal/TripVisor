@@ -27,19 +27,48 @@ class _HomeFullScreenShowState extends State<HomeFullScreenShow> {
         ].map((i) {
           return Builder(
             builder: (BuildContext context) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                // margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                ),
-                child: Image.network(
-                  i,
-                  fit: BoxFit.cover,
-                  color: Colors.black.withOpacity(0.3),
-                  colorBlendMode: BlendMode.darken,
-                ),
-              );
+              return Stack(
+  children: [
+    Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+      ),
+      child: Image.network(
+        i,
+        fit: BoxFit.cover,
+        color: Colors.black.withOpacity(0.3),
+        colorBlendMode: BlendMode.darken,
+      ),
+    ),
+    Positioned(
+      top: MediaQuery.of(context).size.height / 2 - 30.0, // Adjust as needed
+      left: 16.0,
+      right: 16.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Your Text Here',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 8.0),
+          ElevatedButton(
+            onPressed: () {
+              // Handle button click
+            },
+            child: Text('View Details'),
+          ),
+        ],
+      ),
+    ),
+  ],
+);
+
             },
           );
         }).toList(),
