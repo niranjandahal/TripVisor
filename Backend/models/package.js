@@ -16,16 +16,11 @@ const ProductSchema = new mongoose.Schema(
     description: {
       type: String,
       required: [true, 'Please provide product description'],
-      maxlength: [1000, 'Description can not be more than 1000 characters'],
+      maxlength: [1000, 'Description is more than 1000 charcters'],
     },
     image: {
       type: String,
-      default: '/uploads/example.jpeg',
-    },
-    category: {
-      type: String,
-      required: [true, 'Please provide product category'],
-      enum: ['office', 'kitchen', 'bedroom'],
+      default: '',
     },
     agency: {
       type: String,
