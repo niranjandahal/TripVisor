@@ -1,30 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const ProductSchema = new mongoose.Schema(
+const PackageSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       trim: true,
-      required: [true, 'Please provide product name'],
-      maxlength: [100, 'Name can not be more than 100 characters'],
+      required: [true, "Please provide package name"],
+      maxlength: [100, "Name can not be more than 100 characters"],
     },
     price: {
       type: Number,
-      required: [true, 'Please provide product price'],
+      required: [true, "Please provide package price"],
       default: 0,
     },
     description: {
       type: String,
-      required: [true, 'Please provide product description'],
-      maxlength: [1000, 'Description is more than 1000 charcters'],
+      required: [true, "Please provide package description"],
+      maxlength: [1000, "Description is more than 1000 charcters"],
     },
     image: {
       type: String,
-      default: '',
+      default: "",
     },
     agency: {
       type: String,
-      required: [true, 'Please provide agency'],
+      required: [true, "Please provide agency"],
     },
     sponsored: {
       type: Boolean,
@@ -40,22 +40,22 @@ const ProductSchema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-ProductSchema.virtual('reviews', {
-  ref: 'Review',
-  localField: '_id',
-  foreignField: 'product',
+PackageSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "package",
   justOne: false,
 });
 
-ProductSchema.pre('remove', async function (next) {
-  await this.model('Review').deleteMany({ product: this._id });
+PackageSchema.pre("remove", async function (next) {
+  await this.model("Review").deleteMany({ package: this._id });
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model("Package", PackageSchema);

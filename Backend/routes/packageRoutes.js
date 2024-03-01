@@ -6,31 +6,31 @@ const {
 } = require('../middleware/authentication');
 
 const {
-  createProduct,
-  getAllProducts,
-  getSingleProduct,
-  updateProduct,
-  deleteProduct,
+  createPackage,
+  getAllPackages,
+  getSinglePackage,
+  updatePackage,
+  deletePackage,
   uploadImage,
-} = require('../controllers/productController');
+} = require('../controllers/packageController');
 
-const { getSingleProductReviews } = require('../controllers/reviewController');
+// const { getSinglePackageReviews } = require('../controllers/reviewController');
 
 router
   .route('/')
-  .post([authenticateUser, authorizePermissions('admin')], createProduct)
-  .get(getAllProducts);
+  .post([authenticateUser, authorizePermissions('admin')], createPackage)
+  .get(getAllPackages);
 
-router
-  .route('/uploadImage')
-  .post([authenticateUser, authorizePermissions('admin')], uploadImage);
+// router
+//   .route('/uploadImage')
+//   .post([authenticateUser, authorizePermissions('admin')], uploadImage);
 
 router
   .route('/:id')
-  .get(getSingleProduct)
-  .patch([authenticateUser, authorizePermissions('admin')], updateProduct)
-  .delete([authenticateUser, authorizePermissions('admin')], deleteProduct);
+  .get(getSinglePackage)
+  .patch([authenticateUser, authorizePermissions('admin')], updatePackage)
+  .delete([authenticateUser, authorizePermissions('admin')], deletePackage);
 
-router.route('/:id/reviews').get(getSingleProductReviews);
+// router.route('/:id/reviews').get(getSinglePackageReviews);
 
 module.exports = router;
