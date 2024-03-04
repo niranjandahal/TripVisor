@@ -1,25 +1,34 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const {
   authenticateUser,
   authorizePermissions,
-} = require('../middleware/authentication');
+} = require("../middleware/authentication");
 const {
   getAllUsers,
   getSingleUser,
   showCurrentUser,
   updateUser,
   updateUserPassword,
-} = require('../controllers/userController');
+} = require("../controllers/userController");
+const {
+  register,
+  login,
+  logout,
+} = require("../controllers/userAuthController");
 
 router
-  .route('/')
-  .get(authenticateUser, authorizePermissions('admin'), getAllUsers);
+  .route("/")
+  .get(authenticateUser, authorizePermissions("admin"), getAllUsers);
 
-router.route('/showMe').get(authenticateUser, showCurrentUser);
-router.route('/updateUser').patch(authenticateUser, updateUser);
-router.route('/updateUserPassword').patch(authenticateUser, updateUserPassword);
+router.route("/showMe").get(authenticateUser, showCurrentUser);
+router.route("/updateUser").patch(authenticateUser, updateUser);
+router.route("/updateUserPassword").patch(authenticateUser, updateUserPassword);
 
-router.route('/:id').get(authenticateUser, getSingleUser);
+router.route("/:id").get(authenticateUser, getSingleUser);
+
+router.post("/register", register);
+router.post("/login", login);
+router.get("/logout", logout);
 
 module.exports = router;

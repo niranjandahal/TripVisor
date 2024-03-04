@@ -18,7 +18,7 @@ const {
 
 router
   .route('/')
-  .post([authenticateUser, authorizePermissions('admin')], createPackage)
+  .post([authenticateUser, authorizePermissions('agency')], createPackage)
   .get(getAllPackages);
 
 // router
@@ -28,8 +28,8 @@ router
 router
   .route('/:id')
   .get(getSinglePackage)
-  .patch([authenticateUser, authorizePermissions('admin')], updatePackage)
-  .delete([authenticateUser, authorizePermissions('admin')], deletePackage);
+  .patch([authenticateUser, authorizePermissions('agency')], updatePackage)
+  .delete([authenticateUser, authorizePermissions(['admin', 'agency'])], deletePackage);
 
 // router.route('/:id/reviews').get(getSinglePackageReviews);
 

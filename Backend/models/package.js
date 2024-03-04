@@ -38,9 +38,9 @@ const PackageSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    user: {
+    agency: {
       type: mongoose.Types.ObjectId,
-      ref: "User",
+      ref: "Agency",
       required: true,
     },
   },

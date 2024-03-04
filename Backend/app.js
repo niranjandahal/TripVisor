@@ -11,7 +11,7 @@ const fileUpload = require("express-fileupload");
 // const rateLimiter = require("express-rate-limit");
 // const helmet = require("helmet");
 // const xss = require("xss-clean");
-// const cors = require("cors");
+const cors = require("cors");
 // const mongoSanitize = require("express-mongo-sanitize");
 
 // database
@@ -36,7 +36,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 //   })
 // );
 // app.use(helmet());
-// app.use(cors());
+app.use(cors());
 // app.use(xss());
 // app.use(mongoSanitize());
 
@@ -47,10 +47,10 @@ app.use(express.static("./public"));
 app.use(fileUpload());
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/packages", packageRouter);
-app.use("/api/v1/reviews", reviewRouter);
-app.use("/api/v1/books", bookRouter);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/package", packageRouter);
+app.use("/api/v1/review", reviewRouter);
+app.use("/api/v1/book", bookRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

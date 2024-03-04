@@ -9,6 +9,7 @@ const authenticateUser = async (req, res, next) => {
   }
 
   try {
+    //userId might be id of agency or admin
     const { name, userId, role } = isTokenValid({ token });
     req.user = { name, userId, role };
     next();

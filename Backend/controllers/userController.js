@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const agency = require('../models/Agency');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const {
@@ -11,6 +12,12 @@ const getAllUsers = async (req, res) => {
   console.log(req.user);
   const users = await User.find({ role: 'user' }).select('-password');
   res.status(StatusCodes.OK).json({ users });
+};
+
+const getAllAgency = async (req, res) => {
+  console.log(req.user);
+  const agency = await agency.find({}).select('-password');
+  res.status(StatusCodes.OK).json({ agency });
 };
 
 const getSingleUser = async (req, res) => {

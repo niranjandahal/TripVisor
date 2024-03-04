@@ -2,10 +2,16 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
-const UserSchema = new mongoose.Schema({
+const AgencySchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please provide name"],
+    minlength: 3,
+    maxlength: 50,
+  },
+  address: {
+    type: String,
+    required: [true, "Please provide address"],
     minlength: 3,
     maxlength: 50,
   },
@@ -25,12 +31,12 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin","agency", "user"],
-    default: "user",
+    enum: ["agency", "user", "admin"],
+    default: "agency",
   },
 });
 
-UserSchema.pre("save", async function () {
+AgencySchema.pre("save", async function () {
   // console.log(this.modifiedPaths());
   // console.log(this.isModified('name'));
   if (!this.isModified("password")) return;
@@ -38,9 +44,9 @@ UserSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-UserSchema.methods.comparePassword = async function (canditatePassword) {
+AgencySchema.methods.comparePassword = async function (canditatePassword) {
   const isMatch = await bcrypt.compare(canditatePassword, this.password);
   return isMatch;
 };
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("Agency", AgencySchema);
