@@ -11,13 +11,9 @@ const register = async (req, res) => {
     throw new CustomError.BadRequestError("Email already exists");
   }
 
-  // 1st registered user admin ho
-  const isFirstAccount = (await User.countDocuments({})) === 0;
-  const role = isFirstAccount ? "admin" : "user";
-
-  const user = await User.create({ name, email, password, role });
+  const user = await User.create({ name, email, password});
   const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
+  // attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 const login = async (req, res) => {
@@ -36,7 +32,7 @@ const login = async (req, res) => {
     throw new CustomError.UnauthenticatedError("Invalid Credentials");
   }
   const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
+  // attachCookiesToResponse({ res, user: tokenUser });
 
   res.status(StatusCodes.OK).json({ user: tokenUser });
 };

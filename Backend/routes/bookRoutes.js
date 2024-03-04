@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   authenticateUser,
-  authorizePermissions,
+  // authorizePermissions,
 } = require("../middleware/authentication");
 
 const {
@@ -16,13 +16,13 @@ const {
 router
   .route("/")
   .post(authenticateUser, createBook)
-  .get(authenticateUser, authorizePermissions("admin"), getAllBooks);
+  .get(authenticateUser, getAllBooks);
 
 router.route("/showAllMyBooks").get(authenticateUser, getCurrentUserBooks);
 
 router
   .route("/:id")
-  .get(authenticateUser, getSingleBook)
-  .patch(authenticateUser, updateBook);
+  .get(authenticateUser, getSingleBook);
+  // .patch(authenticateUser, updateBook);
 
 module.exports = router;

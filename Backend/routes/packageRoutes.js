@@ -5,6 +5,7 @@ const {
   authorizePermissions,
 } = require('../middleware/authentication');
 
+const { getSinglePackageReviews } = require('../controllers/reviewController');
 const {
   createPackage,
   getAllPackages,
@@ -18,7 +19,7 @@ const {
 
 router
   .route('/')
-  .post([authenticateUser, authorizePermissions('agency')], createPackage)
+  .post(authenticateUser, createPackage)
   .get(getAllPackages);
 
 // router
@@ -28,9 +29,9 @@ router
 router
   .route('/:id')
   .get(getSinglePackage)
-  .patch([authenticateUser, authorizePermissions('agency')], updatePackage)
-  .delete([authenticateUser, authorizePermissions(['admin', 'agency'])], deletePackage);
+  .patch(updatePackage)
+  .delete(authenticateUser,deletePackage);
 
-// router.route('/:id/reviews').get(getSinglePackageReviews);
+router.route('/:id/reviews').get(getSinglePackageReviews);
 
 module.exports = router;

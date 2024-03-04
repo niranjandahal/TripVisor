@@ -22,10 +22,6 @@ const PackageSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    agency: {
-      type: String,
-      required: [true, "Please provide agency"],
-    },
     sponsored: {
       type: Boolean,
       default: false,

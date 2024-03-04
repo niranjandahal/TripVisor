@@ -19,7 +19,7 @@ const {
 
 router
   .route("/")
-  .get(authenticateUser, authorizePermissions("admin"), getAllAgency);
+  .get(getAllAgency);
 router.route("/showMe").get(authenticateUser, showCurrentAgency);
 router.route("/updateAgency").patch(authenticateUser, updateAgency);
 router
@@ -28,8 +28,8 @@ router
 
 router.route("/:id").get(authenticateUser, getSingleAgency);
 
-router.post("/register", register);
-router.post("/login", login);
-router.get("/logout", logout);
+router.post("/register", authenticateUser,register);
+router.post("/login", authenticateUser, login);
+router.get("/logout", authenticateUser, logout);
 
 module.exports = router;

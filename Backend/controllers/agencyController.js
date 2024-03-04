@@ -1,11 +1,11 @@
 const Agency = require('../models/Agency');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
-const {
-  createTokenAgency,
-  attachCookiesToResponse,
-  checkPermissions,
-} = require('../utils');
+// const {
+//   createTokenAgency,
+//   attachCookiesToResponse,
+//   checkPermissions,
+// } = require('../utils');
 
 const getAllAgency = async (req, res) => {
   // console.log(req.agency);
@@ -18,7 +18,7 @@ const getSingleAgency = async (req, res) => {
   if (!agency) {
     throw new CustomError.NotFoundError(`No agency with id : ${req.params.id}`);
   }
-  checkPermissions(req.user, agency._id);
+  // checkPermissions(req.user, agency._id);
   res.status(StatusCodes.OK).json({ agency });
 };
 
@@ -38,8 +38,8 @@ const updateAgency = async (req, res) => {
 
   await agency.save();
 
-  const tokenAgency = createTokenAgency(agency);
-  attachCookiesToResponse({ res, agency: tokenAgency });
+  // const tokenAgency = createTokenUser(agency);
+  // attachCookiesToResponse({ res, agency: tokenAgency });
   res.status(StatusCodes.OK).json({ agency: tokenAgency });
 };
 const updateAgencyPassword = async (req, res) => {

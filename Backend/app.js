@@ -6,8 +6,8 @@ const express = require("express");
 const app = express();
 // rest of the packages
 // const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
-const fileUpload = require("express-fileupload");
+// const cookieParser = require("cookie-parser");
+// const fileUpload = require("express-fileupload");
 // const rateLimiter = require("express-rate-limit");
 // const helmet = require("helmet");
 // const xss = require("xss-clean");
@@ -18,11 +18,17 @@ const cors = require("cors");
 const connectDB = require("./db/connect");
 
 //  routers
-const authRouter = require("./routes/authRoutes");
+// const authRouter = require("./routes/authRoutes");
+// const userRouter = require("./routes/userRoutes");
+// const packageRouter = require("./routes/packageRoutes");
+// const reviewRouter = require("./routes/reviewRoutes");
+// const bookRouter = require("./routes/bookRoutes");
+const agencyRouter = require("./routes/agencyRoutes");
 const userRouter = require("./routes/userRoutes");
 const packageRouter = require("./routes/packageRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const bookRouter = require("./routes/bookRoutes");
+const searchRouter = require("./routes/searchRoutes");
 
 // middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -41,12 +47,13 @@ app.use(cors());
 // app.use(mongoSanitize());
 
 app.use(express.json());
-app.use(cookieParser(process.env.JWT_SECRET));
+// app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use(express.static("./public"));
-app.use(fileUpload());
+// app.use(fileUpload());
 
-app.use("/api/v1/auth", authRouter);
+app.use("api/v1/agency/search", searchRouter);
+app.use("/api/v1/agency", agencyRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/package", packageRouter);
 app.use("/api/v1/review", reviewRouter);

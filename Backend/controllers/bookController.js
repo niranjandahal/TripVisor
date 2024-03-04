@@ -3,63 +3,27 @@ const Package = require("../models/Package");
 
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
-const { checkPermissions } = require("../utils");
+// const { checkPermissions } = require("../utils");
 
-const fakeStripeAPI = async ({ amount, currency }) => {
-  const client_secret = "someRandomValue";
-  return { client_secret, amount };
-};
+// const fakeStripeAPI = async ({ amount, currency }) => {
+//   const client_secret = "someRandomValue";
+//   return { client_secret, amount };
+// };
 
 const createBook = async (req, res) => {
-  const { items: cartItems, tax, shippingFee } = req.body;
-
-  if (!cartItems || cartItems.length < 1) {
-    throw new CustomError.BadRequestError("No cart items provided");
-  }
-  if (!tax || !shippingFee) {
-    throw new CustomError.BadRequestError(
-      "Please provide tax and shipping fee"
-    );
-  }
-
-  let bookItems = [];
-  let subtotal = 0;
-
-  for (const item of cartItems) {
-    const dbPackage = await Package.findOne({ _id: item.package });
+  const {packageId} = req.body;
+  const dbPackage = await Package.findOne({ _id: packageId });
     if (!dbPackage) {
       throw new CustomError.NotFoundError(
         `No package with id : ${item.package}`
       );
     }
-    const { name, price, image, _id } = dbPackage;
-    const singleBookItem = {
-      amount: item.amount,
-      name,
-      price,
-      image,
-      package: _id,
-    };
-    // add item to book
-    bookItems = [...bookItems, singleBookItem];
-    // calculate subtotal
-    subtotal += item.amount * price;
-  }
-  // calculate total
-  const total = tax + shippingFee + subtotal;
-  // get client secret
-  const paymentIntent = await fakeStripeAPI({
-    amount: total,
-    currency: "usd",
-  });
+    const { name, price, _id } = dbPackage;
 
   const book = await Book.create({
-    bookItems,
-    total,
-    subtotal,
-    tax,
-    shippingFee,
-    clientSecret: paymentIntent.client_secret,
+    name,
+    price,
+    package: _id,
     user: req.user.userId,
   });
 
@@ -77,34 +41,32 @@ const getSingleBook = async (req, res) => {
   if (!book) {
     throw new CustomError.NotFoundError(`No book with id : ${bookId}`);
   }
-  checkPermissions(req.user, book.user);
+  // checkPermissions(req.user, book.user);
   res.status(StatusCodes.OK).json({ book });
 };
 const getCurrentUserBooks = async (req, res) => {
   const books = await Book.find({ user: req.user.userId });
   res.status(StatusCodes.OK).json({ books, count: books.length });
 };
-const updateBook = async (req, res) => {
-  const { id: bookId } = req.params;
-  const { paymentIntentId } = req.body;
+// const updateBook = async (req, res) => {
+//   const { bookId } = req.params;
 
-  const book = await Book.findOne({ _id: bookId });
-  if (!book) {
-    throw new CustomError.NotFoundError(`No book with id : ${bookId}`);
-  }
-  checkPermissions(req.user, book.user);
+//   const book = await Book.findOne({ _id: bookId });
+//   if (!book) {
+//     throw new CustomError.NotFoundError(`No book with id : ${bookId}`);
+//   }
+//   // checkPermissions(req.user, book.user);
 
-  book.paymentIntentId = paymentIntentId;
-  book.status = "paid";
-  await book.save();
+//   book.status = req.body.status;
+//   await book.save();
 
-  res.status(StatusCodes.OK).json({ book });
-};
+//   res.status(StatusCodes.OK).json({ book });
+// };
 
 module.exports = {
   getAllBooks,
   getSingleBook,
   getCurrentUserBooks,
   createBook,
-  updateBook,
+  // updateBook,
 };
