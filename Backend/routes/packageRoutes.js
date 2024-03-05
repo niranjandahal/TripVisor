@@ -12,7 +12,7 @@ const {
   getSinglePackage,
   updatePackage,
   deletePackage,
-  uploadImage,
+  // uploadImage,
 } = require('../controllers/packageController');
 
 // const { getSinglePackageReviews } = require('../controllers/reviewController');

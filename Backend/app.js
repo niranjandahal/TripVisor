@@ -29,6 +29,8 @@ const packageRouter = require("./routes/packageRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const bookRouter = require("./routes/bookRoutes");
 const searchRouter = require("./routes/searchRoutes");
+const homePageRouter = require("./routes/homePageRoutes");
+
 
 // middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -36,28 +38,30 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 
 // app.set("trust proxy", 1);
 // app.use(
-//   rateLimiter({
-//     windowMs: 15 * 60 * 1000,
-//     max: 60,
-//   })
-// );
-// app.use(helmet());
-app.use(cors());
-// app.use(xss());
-// app.use(mongoSanitize());
+  //   rateLimiter({
+    //     windowMs: 15 * 60 * 1000,
+    //     max: 60,
+    //   })
+    // );
+    // app.use(helmet());
+    // app.use(xss());
+    // app.use(mongoSanitize());
+    
+    app.use(cors());
+    app.use(express.json());
+    // app.use(cookieParser(process.env.JWT_SECRET));
+    
+    app.use(express.static("./public"));
+    // app.use(fileUpload());
+    
+    app.use("/api/v1/agency/search", searchRouter);
+    app.use("/api/v1/agency", agencyRouter);
+    app.use("/api/v1/user", userRouter);
+    app.use("/api/v1/package", packageRouter);
+    app.use("/api/v1/review", reviewRouter);
+    app.use("/api/v1/book", bookRouter);
+app.use("/api/v1/homepage", homePageRouter);
 
-app.use(express.json());
-// app.use(cookieParser(process.env.JWT_SECRET));
-
-app.use(express.static("./public"));
-// app.use(fileUpload());
-
-app.use("api/v1/agency/search", searchRouter);
-app.use("/api/v1/agency", agencyRouter);
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/package", packageRouter);
-app.use("/api/v1/review", reviewRouter);
-app.use("/api/v1/book", bookRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

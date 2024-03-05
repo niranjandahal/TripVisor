@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const homePackage = require("./homePackage");
 
 const AgencySchema = new mongoose.Schema({
   name: {

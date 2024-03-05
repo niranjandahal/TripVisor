@@ -3,6 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const { createTokenUser } = require("../utils");
 const Agency = require("../models/Agency");
+const Package = require("../models/Package");
 
 const register = async (req, res) => {
   const { email, name, password, address } = req.body;
@@ -17,6 +18,12 @@ const register = async (req, res) => {
   // attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
+
+const deleteAgency = async (req, res) => {
+  const { id: userId } = req.params;
+  const use = await Package.findManyAndDelete({ agency: userId });
+  const user = await Agency.findOneAndDelete({ _id: userId });
+}
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -40,10 +47,10 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.cookie("token", "logout", {
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000),
-  });
+  //res.cookie("token", "logout", {
+    //httpOnly: true,
+    //expires: new Date(Date.now() + 1000),
+  //});
   res.status(StatusCodes.OK).json({ msg: "user logged out!" });
 };
 
@@ -51,4 +58,5 @@ module.exports = {
   register,
   login,
   logout,
+  deleteAgency,
 };

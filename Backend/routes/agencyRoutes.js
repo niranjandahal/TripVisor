@@ -4,6 +4,7 @@ const {
   register,
   login,
   logout,
+  deleteAgency,
 } = require("../controllers/agencyAuthController");
 const {
   authenticateUser,
@@ -31,5 +32,6 @@ router.route("/:id").get(authenticateUser, getSingleAgency);
 router.post("/register", authenticateUser,register);
 router.post("/login", authenticateUser, login);
 router.get("/logout", authenticateUser, logout);
+router.get("/delete/:id", authenticateUser, deleteAgency);
 
 module.exports = router;
